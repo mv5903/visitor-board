@@ -17,7 +17,7 @@
 
   async function loadVisitors() {
     try {
-      const response = await fetch('http://10.0.0.20:5173/api/visitors');
+      const response = await fetch('http://10.0.2.36:3001/api/visitors');
       if (response.ok) {
         visitors = await response.json();
       }

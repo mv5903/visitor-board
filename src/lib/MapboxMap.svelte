@@ -7,7 +7,7 @@
   export let visitors: any[] = [];
 
   // Mapbox access token
-  const MAPBOX_TOKEN = 'pk.eyJ1Ijoia3dpa21hdHQiLCJhIjoiY2ticmhpMjQ1MndvbjJwcW54bmk1dWFjdCJ9.nVMk6GxrstG-4QIeX1y33g';
+  const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
   
   let mapContainer: HTMLDivElement;
   let map: mapboxgl.Map;
@@ -16,7 +16,7 @@
   onMount(async () => {
     // Generate website QR code
     try {
-      const url = 'http://10.0.0.20:5173';
+      const url = 'http://10.0.2.36';
       const qrContainer = document.getElementById('qr-code');
       if (qrContainer) {
         // Create a canvas element

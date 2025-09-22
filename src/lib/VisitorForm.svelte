@@ -57,7 +57,7 @@
       formData.append('current_city', currentCity);
       formData.append('photo', photoFile);
 
-      const response = await fetch('http://10.0.0.20:5173/api/visitors', {
+      const response = await fetch('http://10.0.2.36:3001/api/visitors', {
         method: 'POST',
         body: formData,
       });
@@ -93,7 +93,7 @@
     if (query.length < 3) return [];
     
     try {
-      const response = await fetch(`http://10.0.0.20:5173/api/search/${encodeURIComponent(query)}`);
+      const response = await fetch(`http://10.0.2.36:3001/api/search/${encodeURIComponent(query)}`);
       if (response.ok) {
         return await response.json();
       }
