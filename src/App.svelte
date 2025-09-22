@@ -44,8 +44,7 @@
           const actuallyNewVisitors = visitorsWithFixedPaths.filter((v: any) => !currentIds.has(v.id));
 
           if (actuallyNewVisitors.length > 0) {
-            visitors = [...visitors, ...actuallyNewVisitors];
-            actuallyNewVisitors.forEach((v: any) => existingVisitorIds.add(v.id));
+            window.location.reload();
           }
         }
       }
