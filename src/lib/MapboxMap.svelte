@@ -16,7 +16,7 @@
   onMount(async () => {
     // Generate website QR code
     try {
-      const url = 'http://10.0.0.20';
+      const url = 'http://10.0.0.20:5173';
       const qrContainer = document.getElementById('qr-code');
       if (qrContainer) {
         // Create a canvas element
