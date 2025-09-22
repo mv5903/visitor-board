@@ -9,22 +9,41 @@
   // Removed activeTab - using isMobile detection only
   let currentVisitorPage = 0;
   let slideInterval: NodeJS.Timeout;
+  let pollingInterval: NodeJS.Timeout;
+  let existingVisitorIds = new Set<string>();
 
   // Mobile detection function
   function checkIfMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
-  async function loadVisitors() {
+  async function loadVisitors(isInitialLoad = false) {
     try {
       const response = await fetch('http://10.0.2.36:3001/api/visitors');
       if (response.ok) {
-        visitors = await response.json();
+        const newVisitors = await response.json();
+
+        if (isInitialLoad) {
+          // Initial load - set all visitors and track their IDs
+          visitors = newVisitors;
+          existingVisitorIds = new Set(newVisitors.map((v: any) => v.id));
+        } else {
+          // Polling update - only add new visitors
+          const currentIds = new Set(visitors.map(v => v.id));
+          const actuallyNewVisitors = newVisitors.filter((v: any) => !currentIds.has(v.id));
+
+          if (actuallyNewVisitors.length > 0) {
+            visitors = [...visitors, ...actuallyNewVisitors];
+            actuallyNewVisitors.forEach((v: any) => existingVisitorIds.add(v.id));
+          }
+        }
       }
     } catch (error) {
       console.error('Error loading visitors:', error);
     } finally {
-      isLoading = false;
+      if (isInitialLoad) {
+        isLoading = false;
+      }
     }
   }
 
@@ -35,6 +54,19 @@
     if (!isMobile) {
       currentVisitorPage = 0;
       startSlideshow();
+    }
+  }
+
+  function startPolling() {
+    stopPolling(); // Clear any existing interval
+    pollingInterval = setInterval(() => {
+      loadVisitors(); // Poll for new visitors every 3 seconds
+    }, 3000);
+  }
+
+  function stopPolling() {
+    if (pollingInterval) {
+      clearInterval(pollingInterval);
     }
   }
 
@@ -87,17 +119,21 @@
 
     window.addEventListener('resize', handleResize);
 
-    loadVisitors();
+    loadVisitors(true); // Initial load
 
     // Start slideshow on desktop
     if (!isMobile) {
       startSlideshow();
     }
 
+    // Start polling for new visitors
+    startPolling();
+
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
       stopSlideshow();
+      stopPolling();
     };
   });
 

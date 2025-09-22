@@ -12,6 +12,7 @@
   let mapContainer: HTMLDivElement;
   let map: mapboxgl.Map;
   let markersAndLines: (mapboxgl.Marker | string)[] = [];
+  let drawnVisitorIds = new Set<string>();
 
   onMount(async () => {
     // Generate website QR code
@@ -108,14 +109,16 @@
       }
     });
     markersAndLines = [];
+    drawnVisitorIds.clear();
   }
 
   function updateVisitors() {
     if (!map || !visitors || !map.isStyleLoaded()) return;
 
-    clearMapData();
+    // Only add new visitors that haven't been drawn yet
+    const newVisitors = visitors.filter(visitor => !drawnVisitorIds.has(visitor.id));
 
-    visitors.forEach((visitor) => {
+    newVisitors.forEach((visitor) => {
       if (!visitor.hometown_coords || !visitor.current_coords) return;
 
       const hometownCoords: [number, number] = [
@@ -284,10 +287,13 @@
         .addTo(map);
 
       markersAndLines.push(visitorMarker);
+
+      // Mark this visitor as drawn
+      drawnVisitorIds.add(visitor.id);
     });
 
-    // Fit map to show all points if there are visitors
-    if (visitors.length > 0) {
+    // Fit map to show all points if there are visitors and this is the first time
+    if (visitors.length > 0 && drawnVisitorIds.size === visitors.length) {
       const bounds = new mapboxgl.LngLatBounds();
       visitors.forEach(visitor => {
         if (visitor.hometown_coords) {
