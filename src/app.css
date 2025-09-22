@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+
+  /* RippleUI Dark Theme Overrides */
+  --primary: #ffffff;
+  --primary-content: #000000;
+  --secondary: #6b7280;
+  --secondary-content: #ffffff;
+  --accent: #9ca3af;
+  --accent-content: #000000;
+  --neutral: #374151;
+  --neutral-content: #ffffff;
+  --base-100: #111827;
+  --base-200: #1f2937;
+  --base-300: #374151;
+  --base-content: #f9fafb;
+  --info: #6b7280;
+  --success: #9ca3af;
+  --warning: #6b7280;
+  --error: #ef4444;
+}
+
+html {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: #000000;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #000000;
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Loading animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Focus styles */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.5);
+}
+
+/* Custom button hover effects */
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Override only blue colors, preserve RippleUI functionality */
+.btn:not(.btn-primary):not(.btn-secondary):not(.btn-accent) {
+  --btn-text-case: none;
+}
+
+/* Only override primary colors to prevent blue */
+.btn-primary {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #f3f4f6;
+  border-color: #f3f4f6;
+}
+
