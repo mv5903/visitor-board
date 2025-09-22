@@ -12,6 +12,9 @@
   let pollingInterval: NodeJS.Timeout;
   let existingVisitorIds = new Set<string>();
 
+  // API base URL
+  const API_BASE_URL = 'http://10.0.2.36:3001';
+
   // Mobile detection function
   function checkIfMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -19,18 +22,26 @@
 
   async function loadVisitors(isInitialLoad = false) {
     try {
-      const response = await fetch('http://10.0.2.36:3001/api/visitors');
+      const response = await fetch(`${API_BASE_URL}/api/visitors`);
       if (response.ok) {
         const newVisitors = await response.json();
 
+        // Fix image paths to include full backend URL
+        const visitorsWithFixedPaths = newVisitors.map((visitor: any) => ({
+          ...visitor,
+          photo_path: visitor.photo_path.startsWith('http')
+            ? visitor.photo_path
+            : `${API_BASE_URL}${visitor.photo_path}`
+        }));
+
         if (isInitialLoad) {
           // Initial load - set all visitors and track their IDs
-          visitors = newVisitors;
-          existingVisitorIds = new Set(newVisitors.map((v: any) => v.id));
+          visitors = visitorsWithFixedPaths;
+          existingVisitorIds = new Set(visitorsWithFixedPaths.map((v: any) => v.id));
         } else {
           // Polling update - only add new visitors
           const currentIds = new Set(visitors.map(v => v.id));
-          const actuallyNewVisitors = newVisitors.filter((v: any) => !currentIds.has(v.id));
+          const actuallyNewVisitors = visitorsWithFixedPaths.filter((v: any) => !currentIds.has(v.id));
 
           if (actuallyNewVisitors.length > 0) {
             visitors = [...visitors, ...actuallyNewVisitors];
@@ -138,8 +149,12 @@
   });
 
   // Reactive statement to restart slideshow when visitors change on desktop
-  $: if (visitors && !isMobile) {
-    currentVisitorPage = 0;
+  $: if (visitors && !isMobile && visitors.length > 0) {
+    // Don't reset page if we're just adding new visitors
+    const totalPages = Math.ceil(visitors.length / VISITORS_PER_PAGE);
+    if (currentVisitorPage >= totalPages) {
+      currentVisitorPage = 0;
+    }
     startSlideshow();
   }
 
@@ -185,14 +200,14 @@
       <div class="content">
         {#if !isMobile}
           <!-- Map Tab - Split Layout -->
-          <div class="mb-12 -mx-4 flex gap-6">
+          <div class="mb-12 -mx-4 flex gap-4">
             <!-- Map Section -->
-            <div class="flex-1">
+            <div class="flex-1 min-w-0">
               <MapboxMap {visitors} />
             </div>
 
             <!-- Recent Visitors Section -->
-            <div class="w-80 flex-shrink-0">
+            <div class="w-72 flex-shrink-0">
               <div class="bg-gray-900 shadow-xl border border-gray-700 rounded-lg h-full">
                 <div class="p-6">
                   <h2 class="text-2xl font-bold text-white mb-6">Recent Visitors</h2>
