@@ -186,10 +186,10 @@
   }
 </script>
 
-<main class="min-h-screen bg-black">
+<main class="max-h-full max-w-full bg-black">
   <!-- Header -->
 
-  <div class="container mx-auto px-4 py-8">
+  <div class="p-3">
     {#if isLoading}
       <div class="flex justify-center items-center py-20">
         <div class="loading loading-spinner loading-lg text-white"></div>
@@ -199,7 +199,7 @@
       <div class="content">
         {#if !isMobile}
           <!-- Map Tab - Split Layout -->
-          <div class="mb-12 -mx-4 flex gap-4">
+          <div class="flex gap-4">
             <!-- Map Section -->
             <div class="flex-1 min-w-0">
               <MapboxMap {visitors} />
@@ -209,7 +209,7 @@
             <div class="w-72 flex-shrink-0">
               <div class="bg-gray-900 shadow-xl border border-gray-700 rounded-lg h-full">
                 <div class="p-6">
-                  <h2 class="text-2xl font-bold text-white mb-6">Recent Visitors</h2>
+                  <h2 class="text-2xl font-bold text-white mb-6">All Visitors</h2>
 
                   {#if visitors.length === 0}
                     <div class="text-center py-8">
@@ -221,7 +221,7 @@
                     {@const totalPages = visitorPages.length}
                     {@const currentPage = visitorPages[currentVisitorPage] || []}
 
-                    <div class="h-[60vh] flex flex-col">
+                    <div class="flex flex-col">
                       <!-- Page content -->
                       <div class="flex-1 space-y-4 overflow-hidden">
                         {#each currentPage as visitor}

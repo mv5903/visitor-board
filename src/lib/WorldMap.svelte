@@ -242,7 +242,7 @@
 </script>
 
 <div class="w-full bg-base-100 rounded-xl overflow-hidden shadow-2xl border border-base-300">
-  <div class="p-6 bg-gradient-to-r from-primary to-secondary">
+  <div class="h-full p-6 bg-gradient-to-r from-primary to-secondary">
     <h2 class="text-2xl font-bold text-primary-content">Visitor Journey Map</h2>
     <p class="text-primary-content/80 mt-2">Tracking journeys from hometown to current city</p>
   </div>

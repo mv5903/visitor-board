@@ -363,7 +363,7 @@
     </div>
   </div>
   
-  <div class="relative h-[80vh]">
+  <div class="relative h-[72vh]">
     <div bind:this={mapContainer} class="w-full h-full"></div>
     
     {#if visitors.length === 0}
