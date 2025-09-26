@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { v4 as uuidv4 } from 'uuid';
 import { createCanvas, loadImage } from 'canvas';
@@ -203,6 +204,23 @@ app.post('/api/visitors', upload.single('photo'), async (req, res) => {
     // If using temp_photo_path (from preview), use that
     if (temp_photo_path) {
       photo_path = `/uploads/${temp_photo_path}`;
+
+      // Generate and save the black and white preview card
+      const photoFullPath = path.join(__dirname, '../public/uploads', temp_photo_path);
+      const previewBuffer = await generatePreviewImage(photoFullPath, name, hometown, current_city);
+
+      // Save the preview card
+      const previewFileName = `preview-${temp_photo_path.replace(/\.[^/.]+$/, '')}.png`;
+      const previewPath = path.join(__dirname, '../public/preview-cards', previewFileName);
+
+      // Ensure preview-cards directory exists
+      const previewDir = path.dirname(previewPath);
+      if (!fs.existsSync(previewDir)) {
+        fs.mkdirSync(previewDir, { recursive: true });
+      }
+
+      fs.writeFileSync(previewPath, previewBuffer);
+      console.log(`✅ Saved preview card: ${previewPath}`);
     }
     // Otherwise, expect a new file upload
     else if (req.file) {
