@@ -66,7 +66,7 @@
       formData.append('current_city', currentCity);
       formData.append('photo', photoFile);
 
-      const response = await fetch('http://localhost:3001/api/preview', {
+      const response = await fetch('http://10.0.2.36:3001/api/preview', {
         method: 'POST',
         body: formData,
       });

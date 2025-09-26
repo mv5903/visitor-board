@@ -327,7 +327,7 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://10.0.2.36:${PORT}`);
 });
 
 export default app;

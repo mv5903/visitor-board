@@ -147,7 +147,7 @@ async function testPreviewAPI() {
       formData.append('photo', imageBlob, imageInfo.filename);
 
       // Make API call
-      const response = await fetch('http://localhost:3001/api/preview', {
+      const response = await fetch('http://10.0.2.36:3001/api/preview', {
         method: 'POST',
         body: formData
       });
