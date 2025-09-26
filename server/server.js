@@ -139,11 +139,10 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
 
     // Draw date
     ctx.font = '16px Arial';
-    const dateText = new Date(visitDate).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const [year, month, day] = visitDate.split('-');
+    const dateText = `${months[parseInt(month, 10) - 1]} ${parseInt(day, 10)}, ${year}`;
+    console.log(visitDate, dateText);
     ctx.fillText(dateText, canvas.width / 2, currentY);
 
     return canvas.toBuffer('image/png');
