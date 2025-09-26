@@ -4,6 +4,7 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { v4 as uuidv4 } from 'uuid';
+import { createCanvas, loadImage } from 'canvas';
 import { visitorQueries } from './database.js';
 import geocodingService from './geocodingService.js';
 
@@ -41,29 +42,172 @@ const upload = multer({
   }
 });
 
+// Function to wrap text to fit within a given width
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let currentLine = words[0];
+
+  for (let i = 1; i < words.length; i++) {
+    const word = words[i];
+    const width = ctx.measureText(currentLine + ' ' + word).width;
+    if (width < maxWidth) {
+      currentLine += ' ' + word;
+    } else {
+      lines.push(currentLine);
+      currentLine = word;
+    }
+  }
+  lines.push(currentLine);
+  return lines;
+}
+
+// Function to generate preview image
+async function generatePreviewImage(photoPath, name, hometown, currentCity) {
+  const canvas = createCanvas(400, 600);
+  const ctx = canvas.getContext('2d');
+
+  // Fill background with white
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  try {
+    // Load and draw photo (black and white)
+    const image = await loadImage(photoPath);
+
+    // Calculate dimensions to fit photo in a square
+    const photoSize = 200;
+    const photoX = (canvas.width - photoSize) / 2;
+    const photoY = 50;
+
+    // Create circular clipping path
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(photoX + photoSize/2, photoY + photoSize/2, photoSize/2, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+
+    // Draw image in grayscale
+    ctx.filter = 'grayscale(100%)';
+    ctx.drawImage(image, photoX, photoY, photoSize, photoSize);
+    ctx.restore();
+
+    // Draw border around photo
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(photoX + photoSize/2, photoY + photoSize/2, photoSize/2, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Set text properties
+    ctx.filter = 'none';
+    ctx.fillStyle = '#000000';
+    ctx.textAlign = 'center';
+
+    let currentY = photoY + photoSize + 40;
+    const maxTextWidth = canvas.width - 40; // 20px margin on each side
+
+    // Draw name with wrapping
+    ctx.font = 'bold 24px Arial';
+    const nameLines = wrapText(ctx, name, maxTextWidth);
+    for (let i = 0; i < nameLines.length; i++) {
+      ctx.fillText(nameLines[i], canvas.width / 2, currentY);
+      currentY += 30;
+    }
+
+    currentY += 10; // Extra spacing after name
+
+    // Draw location info with wrapping
+    ctx.font = '18px Arial';
+    const locationText = `${hometown} → ${currentCity}`;
+    const locationLines = wrapText(ctx, locationText, maxTextWidth);
+    for (let i = 0; i < locationLines.length; i++) {
+      ctx.fillText(locationLines[i], canvas.width / 2, currentY);
+      currentY += 25;
+    }
+
+    currentY += 10; // Extra spacing before date
+
+    // Draw date
+    ctx.font = '16px Arial';
+    const dateText = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    ctx.fillText(dateText, canvas.width / 2, currentY);
+
+    return canvas.toBuffer('image/png');
+  } catch (error) {
+    console.error('Error generating preview image:', error);
+    throw error;
+  }
+}
+
 // API Routes
 
-// POST /api/visitors - Create a new visitor
-app.post('/api/visitors', upload.single('photo'), async (req, res) => {
+// POST /api/preview - Generate preview image
+app.post('/api/preview', upload.single('photo'), async (req, res) => {
   try {
     const { name, hometown, current_city } = req.body;
-    
+
     if (!name || !hometown || !current_city) {
-      return res.status(400).json({ 
-        error: 'Name, hometown, and current city are required' 
+      return res.status(400).json({
+        error: 'Name, hometown, and current city are required'
       });
     }
 
     if (!req.file) {
-      return res.status(400).json({ 
-        error: 'Photo is required' 
+      return res.status(400).json({
+        error: 'Photo is required'
       });
     }
 
-    const photo_path = `/uploads/${req.file.filename}`;
-    
+    const photoPath = path.join(__dirname, '../public/uploads', req.file.filename);
+    const previewBuffer = await generatePreviewImage(photoPath, name, hometown, current_city);
+
+    // Convert buffer to base64 for frontend display
+    const base64Image = previewBuffer.toString('base64');
+
+    res.json({
+      preview: `data:image/png;base64,${base64Image}`,
+      tempPhotoPath: req.file.filename
+    });
+  } catch (error) {
+    console.error('Error generating preview:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// POST /api/visitors - Create a new visitor
+app.post('/api/visitors', upload.single('photo'), async (req, res) => {
+  try {
+    const { name, hometown, current_city, temp_photo_path } = req.body;
+
+    if (!name || !hometown || !current_city) {
+      return res.status(400).json({
+        error: 'Name, hometown, and current city are required'
+      });
+    }
+
+    let photo_path;
+
+    // If using temp_photo_path (from preview), use that
+    if (temp_photo_path) {
+      photo_path = `/uploads/${temp_photo_path}`;
+    }
+    // Otherwise, expect a new file upload
+    else if (req.file) {
+      photo_path = `/uploads/${req.file.filename}`;
+    }
+    else {
+      return res.status(400).json({
+        error: 'Photo is required'
+      });
+    }
+
     const result = visitorQueries.insert.run(name, hometown, current_city, photo_path);
-    
+
     res.status(201).json({
       id: result.lastInsertRowid,
       message: 'Visitor created successfully'

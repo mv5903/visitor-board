@@ -1,0 +1,449 @@
+{
+  "totalTests": 100,
+  "successful": 10,
+  "failed": 90,
+  "results": [
+    {
+      "testNumber": 2,
+      "name": "D'Angelo",
+      "hometown": "Denver",
+      "currentCity": "Miami",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-002.png",
+      "success": true
+    },
+    {
+      "testNumber": 11,
+      "name": "Maria Isabel Gonzalez Rodriguez",
+      "hometown": "New Orleans",
+      "currentCity": "DC",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-011.png",
+      "success": true
+    },
+    {
+      "testNumber": 19,
+      "name": "Christopher Alexander",
+      "hometown": "San Francisco, California",
+      "currentCity": "Denver",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-019.png",
+      "success": true
+    },
+    {
+      "testNumber": 20,
+      "name": "Maria Isabel Gonzalez Rodriguez",
+      "hometown": "LA",
+      "currentCity": "LA",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-020.png",
+      "success": true
+    },
+    {
+      "testNumber": 23,
+      "name": "Maria Isabel Gonzalez Rodriguez",
+      "hometown": "Philadelphia",
+      "currentCity": "Supercalifragilisticexpialidocious City, State, Country",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-023.png",
+      "success": true
+    },
+    {
+      "testNumber": 46,
+      "name": "Li",
+      "hometown": "New York City, New York",
+      "currentCity": "SF",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-046.png",
+      "success": true
+    },
+    {
+      "testNumber": 49,
+      "name": "Jean-Baptiste",
+      "hometown": "Miami",
+      "currentCity": "Minneapolis",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-049.png",
+      "success": true
+    },
+    {
+      "testNumber": 72,
+      "name": "Christopher",
+      "hometown": "San Bernardino County, California, United States",
+      "currentCity": "San Francisco",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-072.png",
+      "success": true
+    },
+    {
+      "testNumber": 77,
+      "name": "Maria Isabel Gonzalez Rodriguez",
+      "hometown": "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch, Wales",
+      "currentCity": "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch, Wales",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-077.png",
+      "success": true
+    },
+    {
+      "testNumber": 85,
+      "name": "Christopher",
+      "hometown": "Seattle",
+      "currentCity": "Saint-Jean-de-Luz, Pyrénées-Atlantiques, France",
+      "outputFile": "/Users/matt/GitHub/visitor_board_decoration/app/test-output/test-085.png",
+      "success": true
+    }
+  ],
+  "errors": [
+    {
+      "testNumber": 1,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 3,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 4,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 5,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 6,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 7,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 8,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 9,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 10,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 12,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 13,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 14,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 15,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 16,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 17,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 18,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 21,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 22,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 24,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 25,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 26,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 27,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 28,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 29,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 30,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 31,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 32,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 33,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 34,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 35,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 36,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 37,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 38,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 39,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 40,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 41,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 42,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 43,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 44,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 45,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 47,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 48,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 50,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 51,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 52,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 53,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 54,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 55,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 56,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 57,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 58,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 59,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 60,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 61,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 62,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 63,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 64,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 65,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 66,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 67,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 68,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 69,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 70,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 71,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 73,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 74,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 75,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 76,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 78,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 79,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 80,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 81,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 82,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 83,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 84,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 86,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 87,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 88,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 89,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 90,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 91,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 92,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 93,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 94,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 95,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 96,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 97,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 98,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 99,
+      "error": "HTTP 500: Internal Server Error"
+    },
+    {
+      "testNumber": 100,
+      "error": "HTTP 500: Internal Server Error"
+    }
+  ]
+}
