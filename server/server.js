@@ -353,7 +353,7 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://10.0.2.36:${PORT}`);
+  console.log(`🚀 Server running on https://visit.mattvandenberg.com:${PORT}`);
 });
 
 export default app;

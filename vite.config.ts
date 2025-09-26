@@ -17,7 +17,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://10.0.2.36:3001',
+        target: 'https://visit.mattvandenberg.com:3001',
         changeOrigin: true,
       },
     },
