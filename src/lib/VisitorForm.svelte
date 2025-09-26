@@ -377,6 +377,7 @@
               </div>
             {/if}
           </div>
+          <!-- svelte-ignore a11y_consider_explicit_label -->
           <button
             type="button"
             class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 h-10 px-3"
@@ -452,12 +453,13 @@
 
 <!-- Preview Modal -->
 {#if showPreviewModal}
-  <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
     <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg max-w-sm w-full max-h-[85vh] overflow-y-auto">
       <div class="p-4 space-y-3">
         <!-- Modal Header -->
         <div class="flex items-center justify-between">
           <h3 class="text-base font-semibold text-gray-900 dark:text-gray-50">Preview Your Card</h3>
+          <!-- svelte-ignore a11y_consider_explicit_label -->
           <button
             on:click={closePreview}
             class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 rounded"
