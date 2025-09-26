@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { get } from 'http';
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
@@ -6,7 +7,7 @@
   let name = '';
   let hometown = '';
   let currentCity = '';
-  let visitDate = new Date().toISOString().split('T')[0]; // Default to today's date
+  let visitDate = new Date().toISOString().split('T')[0]; // Default to today
   let photoFile: File | null = null;
   let photoPreview = '';
   let isSubmitting = false;
@@ -409,7 +410,7 @@
           id="visit-date"
           type="date"
           bind:value={visitDate}
-          class="flex h-10 w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50"
+          class="flex h-10 w-1/2 mx-auto rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50"
           required
         />
       </div>

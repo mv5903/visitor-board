@@ -8,7 +8,7 @@
     "server": "node server/server.js",
     "start": "node start.mjs",
     "dev:all": "concurrently \"npm run server\" \"npm run dev\"",
-    "build": "git stash && git pull && git stash pop && npm install && vite build && sudo cp -r dist/* /var/www/html/ && pm2 restart all",
+    "build": "vite build && sudo cp -r dist/* /var/www/html/ && pm2 restart all",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json"
   },
