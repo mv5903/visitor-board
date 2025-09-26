@@ -28,4 +28,13 @@
   :global(input[type="text"], input[type="date"], input[type="file"]) {
     font-size: 16px; /* Prevents iOS zoom */
   }
+
+  /* Ensure modal background covers full document */
+  :global(html) {
+    height: 100%;
+  }
+
+  :global(body) {
+    min-height: 100vh;
+  }
 </style>
