@@ -66,7 +66,7 @@
       formData.append('current_city', currentCity);
       formData.append('photo', photoFile);
 
-      const response = await fetch('https://visit.mattvandenberg.com:3001/api/preview', {
+      const response = await fetch('/api/preview', {
         method: 'POST',
         body: formData,
       });
@@ -99,7 +99,7 @@
       formData.append('current_city', currentCity);
       formData.append('temp_photo_path', tempPhotoPath);
 
-      const response = await fetch('https://visit.mattvandenberg.com:3001/api/visitors', {
+      const response = await fetch('/api/visitors', {
         method: 'POST',
         body: formData,
       });
@@ -144,7 +144,7 @@
     if (query.length < 3) return [];
     
     try {
-      const response = await fetch(`https://visit.mattvandenberg.com:3001/api/search/${encodeURIComponent(query)}`);
+      const response = await fetch(`/api/search/${encodeURIComponent(query)}`);
       if (response.ok) {
         return await response.json();
       }
