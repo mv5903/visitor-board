@@ -36,11 +36,13 @@
     "canvas": "^2.11.2",
     "cors": "^2.8.5",
     "csv-parser": "^3.2.0",
+    "exif-js": "^2.3.0",
     "express": "^5.1.0",
     "multer": "^2.0.2",
     "node-fetch": "^3.3.2",
     "qrcode": "^1.5.4",
     "rippleui": "^1.12.1",
+    "sharp": "^0.34.4",
     "uuid": "^13.0.0"
   }
 }

@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { v4 as uuidv4 } from 'uuid';
 import { createCanvas, loadImage } from 'canvas';
+import sharp from 'sharp';
 import { visitorQueries } from './database.js';
 import geocodingService from './geocodingService.js';
 
@@ -72,8 +73,15 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity) {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   try {
-    // Load and draw photo (black and white)
-    const image = await loadImage(photoPath);
+    // Process image with Sharp to fix orientation and convert to buffer
+    const processedImageBuffer = await sharp(photoPath)
+      .rotate() // Auto-rotate based on EXIF orientation
+      .resize(400, 400, { fit: 'cover' }) // Resize to square for better canvas handling
+      .png()
+      .toBuffer();
+
+    // Load the processed image
+    const image = await loadImage(processedImageBuffer);
 
     // Calculate dimensions to fit photo in a square
     const photoSize = 200;
