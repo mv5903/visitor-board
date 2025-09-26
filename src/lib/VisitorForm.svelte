@@ -452,7 +452,7 @@
 
 <!-- Preview Modal -->
 {#if showPreviewModal}
-  <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-blue-900">
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
     <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg max-w-sm w-full max-h-[85vh] overflow-y-auto">
       <div class="p-4 space-y-3">
         <!-- Modal Header -->
