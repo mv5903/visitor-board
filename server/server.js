@@ -64,6 +64,53 @@ function wrapText(ctx, text, maxWidth) {
   return lines;
 }
 
+// Function to clean up location names
+function cleanLocationName(text) {
+  const stateAbbreviations = {
+    'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR', 'California': 'CA',
+    'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE', 'Florida': 'FL', 'Georgia': 'GA',
+    'Hawaii': 'HI', 'Idaho': 'ID', 'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA',
+    'Kansas': 'KS', 'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD',
+    'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS', 'Missouri': 'MO',
+    'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV', 'New Hampshire': 'NH', 'New Jersey': 'NJ',
+    'New Mexico': 'NM', 'New York': 'NY', 'North Carolina': 'NC', 'North Dakota': 'ND', 'Ohio': 'OH',
+    'Oklahoma': 'OK', 'Oregon': 'OR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
+    'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT', 'Vermont': 'VT',
+    'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY',
+    'District of Columbia': 'DC'
+  };
+
+  // Suffixes to remove from city/town names
+  const suffixesToRemove = [
+    'Township', 'twp', 'City', 'Town', 'Village', 'Borough', 'Boro', 'Municipality',
+    'County', 'Parish', 'Precinct', 'District', 'Metro', 'Metropolitan', 'Area',
+    'Unincorporated', 'CDP', 'Census Designated Place'
+  ];
+
+  let result = text;
+
+  // Remove suffixes (case insensitive, with word boundaries)
+  suffixesToRemove.forEach(suffix => {
+    const regex = new RegExp(`\\b${suffix}\\b`, 'gi');
+    result = result.replace(regex, '');
+  });
+
+  // Replace full state names with abbreviations (case insensitive)
+  Object.entries(stateAbbreviations).forEach(([fullName, abbrev]) => {
+    const regex = new RegExp(`\\b${fullName}\\b`, 'gi');
+    result = result.replace(regex, abbrev);
+  });
+
+  // Clean up extra whitespace and commas
+  result = result.replace(/\s+/g, ' '); // Multiple spaces to single space
+  result = result.replace(/,\s*,/g, ','); // Double commas
+  result = result.replace(/,\s*$/g, ''); // Trailing comma
+  result = result.replace(/^\s*,/g, ''); // Leading comma
+  result = result.trim();
+
+  return result;
+}
+
 // Function to generate preview image
 async function generatePreviewImage(photoPath, name, hometown, currentCity, visitDate) {
   const canvas = createCanvas(400, 600);
@@ -128,7 +175,7 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
 
     // Draw location info with wrapping
     ctx.font = '18px Arial';
-    const locationText = `${hometown} → ${currentCity}`;
+    const locationText = `${cleanLocationName(hometown)} → ${cleanLocationName(currentCity)}`;
     const locationLines = wrapText(ctx, locationText, maxTextWidth);
     for (let i = 0; i < locationLines.length; i++) {
       ctx.fillText(locationLines[i], canvas.width / 2, currentY);
