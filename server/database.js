@@ -18,6 +18,7 @@ const createVisitorsTable = `
     name TEXT NOT NULL,
     hometown TEXT NOT NULL,
     current_city TEXT NOT NULL,
+    visit_date DATE NOT NULL,
     photo_path TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )
@@ -25,11 +26,18 @@ const createVisitorsTable = `
 
 db.exec(createVisitorsTable);
 
+// Add visit_date column if it doesn't exist (for existing databases)
+try {
+  db.exec('ALTER TABLE visitors ADD COLUMN visit_date DATE');
+} catch (error) {
+  // Column already exists, ignore error
+}
+
 export const visitorQueries = {
   // Insert a new visitor
   insert: db.prepare(`
-    INSERT INTO visitors (name, hometown, current_city, photo_path)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO visitors (name, hometown, current_city, visit_date, photo_path)
+    VALUES (?, ?, ?, ?, ?)
   `),
 
   // Get all visitors

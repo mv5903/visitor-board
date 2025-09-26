@@ -65,7 +65,7 @@ function wrapText(ctx, text, maxWidth) {
 }
 
 // Function to generate preview image
-async function generatePreviewImage(photoPath, name, hometown, currentCity) {
+async function generatePreviewImage(photoPath, name, hometown, currentCity, visitDate) {
   const canvas = createCanvas(400, 600);
   const ctx = canvas.getContext('2d');
 
@@ -139,7 +139,7 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity) {
 
     // Draw date
     ctx.font = '16px Arial';
-    const dateText = new Date().toLocaleDateString('en-US', {
+    const dateText = new Date(visitDate).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -158,11 +158,11 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity) {
 // POST /api/preview - Generate preview image
 app.post('/api/preview', upload.single('photo'), async (req, res) => {
   try {
-    const { name, hometown, current_city } = req.body;
+    const { name, hometown, current_city, visit_date } = req.body;
 
-    if (!name || !hometown || !current_city) {
+    if (!name || !hometown || !current_city || !visit_date) {
       return res.status(400).json({
-        error: 'Name, hometown, and current city are required'
+        error: 'Name, hometown, current city, and visit date are required'
       });
     }
 
@@ -173,7 +173,7 @@ app.post('/api/preview', upload.single('photo'), async (req, res) => {
     }
 
     const photoPath = path.join(__dirname, '../public/uploads', req.file.filename);
-    const previewBuffer = await generatePreviewImage(photoPath, name, hometown, current_city);
+    const previewBuffer = await generatePreviewImage(photoPath, name, hometown, current_city, visit_date);
 
     // Convert buffer to base64 for frontend display
     const base64Image = previewBuffer.toString('base64');
@@ -191,11 +191,11 @@ app.post('/api/preview', upload.single('photo'), async (req, res) => {
 // POST /api/visitors - Create a new visitor
 app.post('/api/visitors', upload.single('photo'), async (req, res) => {
   try {
-    const { name, hometown, current_city, temp_photo_path } = req.body;
+    const { name, hometown, current_city, visit_date, temp_photo_path } = req.body;
 
-    if (!name || !hometown || !current_city) {
+    if (!name || !hometown || !current_city || !visit_date) {
       return res.status(400).json({
-        error: 'Name, hometown, and current city are required'
+        error: 'Name, hometown, current city, and visit date are required'
       });
     }
 
@@ -207,7 +207,7 @@ app.post('/api/visitors', upload.single('photo'), async (req, res) => {
 
       // Generate and save the black and white preview card
       const photoFullPath = path.join(__dirname, '../public/uploads', temp_photo_path);
-      const previewBuffer = await generatePreviewImage(photoFullPath, name, hometown, current_city);
+      const previewBuffer = await generatePreviewImage(photoFullPath, name, hometown, current_city, visit_date);
 
       // Save the preview card
       const previewFileName = `preview-${temp_photo_path.replace(/\.[^/.]+$/, '')}.png`;
@@ -232,7 +232,7 @@ app.post('/api/visitors', upload.single('photo'), async (req, res) => {
       });
     }
 
-    const result = visitorQueries.insert.run(name, hometown, current_city, photo_path);
+    const result = visitorQueries.insert.run(name, hometown, current_city, visit_date, photo_path);
 
     res.status(201).json({
       id: result.lastInsertRowid,

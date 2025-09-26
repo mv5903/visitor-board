@@ -6,6 +6,7 @@
   let name = '';
   let hometown = '';
   let currentCity = '';
+  let visitDate = new Date().toISOString().split('T')[0]; // Default to today's date
   let photoFile: File | null = null;
   let photoPreview = '';
   let isSubmitting = false;
@@ -36,7 +37,7 @@
   }
 
   async function handleSubmit() {
-    if (!name || !hometown || !currentCity || !photoFile) {
+    if (!name || !hometown || !currentCity || !visitDate || !photoFile) {
       errorMessage = 'Please fill in all fields and select a photo';
       return;
     }
@@ -64,6 +65,7 @@
       formData.append('name', name);
       formData.append('hometown', hometown);
       formData.append('current_city', currentCity);
+      formData.append('visit_date', visitDate);
       formData.append('photo', photoFile);
 
       const response = await fetch('/api/preview', {
@@ -97,6 +99,7 @@
       formData.append('name', name);
       formData.append('hometown', hometown);
       formData.append('current_city', currentCity);
+      formData.append('visit_date', visitDate);
       formData.append('temp_photo_path', tempPhotoPath);
 
       const response = await fetch('/api/visitors', {
@@ -113,6 +116,7 @@
       name = '';
       hometown = '';
       currentCity = '';
+      visitDate = '';
       photoFile = null;
       photoPreview = '';
       hometownSelected = false;
@@ -393,6 +397,21 @@
             {/each}
           </div>
         {/if}
+      </div>
+
+      <!-- Visit Date Input -->
+      <div class="space-y-2">
+        <label class="text-sm font-medium text-gray-900 dark:text-gray-50" for="visit-date">
+          Date of First Visit
+        </label>
+        <p class="text-xs text-gray-500 dark:text-gray-400">When did you first visit this place?</p>
+        <input
+          id="visit-date"
+          type="date"
+          bind:value={visitDate}
+          class="flex h-10 w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50"
+          required
+        />
       </div>
 
       <!-- Submit Button -->
