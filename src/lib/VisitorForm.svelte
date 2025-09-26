@@ -7,6 +7,7 @@
   let name = '';
   let hometown = '';
   let currentCity = '';
+  // Get today's date in local timezone
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0');
