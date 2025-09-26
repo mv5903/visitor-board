@@ -23,4 +23,9 @@
     padding: 0;
     background-color: #1e293b; /* slate-800 */
   }
+
+  /* Prevent mobile zoom on input focus */
+  :global(input[type="text"], input[type="date"], input[type="file"]) {
+    font-size: 16px; /* Prevents iOS zoom */
+  }
 </style>
