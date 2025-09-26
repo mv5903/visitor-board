@@ -478,9 +478,6 @@
           <p class="text-xs text-gray-600 dark:text-gray-400 text-center">
             This is how your card will appear on my scratch-off world map!
           </p>
-          <p class="text-xs text-gray-500 dark:text-gray-500 text-center italic">
-            * Actual printed picture will be black and white
-          </p>
         </div>
 
         <!-- Action Buttons -->
