@@ -103,6 +103,7 @@ function cleanLocationName(text) {
 
   // Clean up extra whitespace and commas
   result = result.replace(/\s+/g, ' '); // Multiple spaces to single space
+  result = result.replace(/\s+,/g, ','); // Space before comma
   result = result.replace(/,\s*,/g, ','); // Double commas
   result = result.replace(/,\s*$/g, ''); // Trailing comma
   result = result.replace(/^\s*,/g, ''); // Leading comma
