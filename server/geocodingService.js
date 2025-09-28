@@ -40,7 +40,8 @@ class GeocodingService {
       
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'VisitorBoard/1.0 (https://visit.mattvandenberg.com:3000)' // Required by Nominatim
+          'User-Agent': 'VisitorBoard/1.0 (https://visit.mattvandenberg.com:3000)', // Required by Nominatim
+          'Accept-Language': 'en' // Request English language results only
         }
       });
 
@@ -118,7 +119,8 @@ class GeocodingService {
       
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'VisitorBoard/1.0 (https://visit.mattvandenberg.com:3000)'
+          'User-Agent': 'VisitorBoard/1.0 (https://visit.mattvandenberg.com:3000)',
+          'Accept-Language': 'en' // Request English language results only
         }
       });
 
