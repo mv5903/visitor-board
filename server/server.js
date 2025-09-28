@@ -133,9 +133,9 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
     const image = await loadImage(processedImageBuffer);
 
     // Calculate dimensions to fit photo in a square
-    const photoSize = 200;
+    const photoSize = 300;
     const photoX = (canvas.width - photoSize) / 2;
-    const photoY = 50;
+    const photoY = 75;
 
     // Create circular clipping path
     ctx.save();
@@ -161,32 +161,32 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
     ctx.fillStyle = '#000000';
     ctx.textAlign = 'center';
 
-    let currentY = photoY + photoSize + 40;
+    let currentY = photoY + photoSize + 60;
     const maxTextWidth = canvas.width - 40; // 20px margin on each side
 
     // Draw name with wrapping
-    ctx.font = 'bold 24px Arial';
+    ctx.font = 'bold 48px Arial';
     const nameLines = wrapText(ctx, name, maxTextWidth);
     for (let i = 0; i < nameLines.length; i++) {
       ctx.fillText(nameLines[i], canvas.width / 2, currentY);
-      currentY += 30;
+      currentY += 60;
     }
 
     currentY += 10; // Extra spacing after name
 
     // Draw location info with wrapping
-    ctx.font = '18px Arial';
+    ctx.font = '36px Arial';
     const locationText = `${cleanLocationName(hometown)} → ${cleanLocationName(currentCity)}`;
     const locationLines = wrapText(ctx, locationText, maxTextWidth);
     for (let i = 0; i < locationLines.length; i++) {
       ctx.fillText(locationLines[i], canvas.width / 2, currentY);
-      currentY += 25;
+      currentY += 50;
     }
 
     currentY += 10; // Extra spacing before date
 
     // Draw date
-    ctx.font = '16px Arial';
+    ctx.font = '32px Arial';
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const [year, month, day] = visitDate.split('-');
     const dateText = `${months[parseInt(month, 10) - 1]} ${parseInt(day, 10)}, ${year}`;
