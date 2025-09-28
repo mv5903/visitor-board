@@ -125,7 +125,7 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
     // Process image with Sharp to fix orientation and convert to buffer
     const processedImageBuffer = await sharp(photoPath)
       .rotate() // Auto-rotate based on EXIF orientation
-      .resize(400, 400, { fit: 'cover' }) // Resize to square for better canvas handling
+      .resize(350, 500, { fit: 'cover' }) // Resize to square for better canvas handling
       .png()
       .toBuffer();
 
@@ -133,9 +133,9 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
     const image = await loadImage(processedImageBuffer);
 
     // Calculate dimensions to fit photo in a square
-    const photoSize = 300;
+    const photoSize = 200;
     const photoX = (canvas.width - photoSize) / 2;
-    const photoY = 75;
+    const photoY = 25;
 
     // Create circular clipping path
     ctx.save();
@@ -165,17 +165,17 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
     const maxTextWidth = canvas.width - 40; // 20px margin on each side
 
     // Draw name with wrapping
-    ctx.font = 'bold 48px Arial';
+    ctx.font = 'bold 36px San Fransisco';
     const nameLines = wrapText(ctx, name, maxTextWidth);
     for (let i = 0; i < nameLines.length; i++) {
       ctx.fillText(nameLines[i], canvas.width / 2, currentY);
       currentY += 60;
     }
 
-    currentY += 10; // Extra spacing after name
+    currentY += 5; // Extra spacing after name
 
     // Draw location info with wrapping
-    ctx.font = '36px Arial';
+    ctx.font = '24px San Fransisco';
     const locationText = `${cleanLocationName(hometown)} → ${cleanLocationName(currentCity)}`;
     const locationLines = wrapText(ctx, locationText, maxTextWidth);
     for (let i = 0; i < locationLines.length; i++) {
@@ -183,10 +183,10 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
       currentY += 50;
     }
 
-    currentY += 10; // Extra spacing before date
+    currentY += 5; // Extra spacing before date
 
     // Draw date
-    ctx.font = '32px Arial';
+    ctx.font = 'italic 24px San Fransisco';
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const [year, month, day] = visitDate.split('-');
     const dateText = `${months[parseInt(month, 10) - 1]} ${parseInt(day, 10)}, ${year}`;
