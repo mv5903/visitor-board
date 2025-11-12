@@ -125,7 +125,7 @@ async function generatePreviewImage(photoPath, name, hometown, currentCity, visi
     // Process image with Sharp to fix orientation and convert to buffer
     const processedImageBuffer = await sharp(photoPath)
       .rotate() // Auto-rotate based on EXIF orientation
-      .resize(350, 500, { fit: 'cover' }) // Resize to square for better canvas handling
+      .resize(400, 400, { fit: 'cover' }) // Resize to square for better canvas handling
       .png()
       .toBuffer();
 
